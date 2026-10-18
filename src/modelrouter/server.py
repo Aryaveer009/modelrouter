@@ -122,6 +122,11 @@ def create_app(
     router = router or build_router(settings)
     log = log or RequestLog(settings.db_path, log_queries=settings.log_queries)
 
+    try:  # load the embedding model now so the first request isn't slow
+        router.classifier.predict_proba_hard(["warm up"])
+    except Exception:  # pragma: no cover - a broken classifier is surfaced per request
+        pass
+
     app = FastAPI(
         title="ModelRouter",
         version=__version__,
