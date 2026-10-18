@@ -9,7 +9,7 @@
   <img alt="FastAPI" src="https://img.shields.io/badge/FastAPI-OpenAI--compatible-009688.svg?logo=fastapi&logoColor=white">
   <img alt="scikit-learn" src="https://img.shields.io/badge/scikit--learn-classifier-F7931E.svg?logo=scikitlearn&logoColor=white">
   <img alt="Streamlit" src="https://img.shields.io/badge/Streamlit-dashboard-FF4B4B.svg?logo=streamlit&logoColor=white">
-  <img alt="Tests" src="https://img.shields.io/badge/tests-83%20passing-brightgreen.svg">
+  <img alt="Tests" src="https://img.shields.io/badge/tests-85%20passing-brightgreen.svg">
 </p>
 
 <p align="center">
@@ -99,7 +99,9 @@ Models: cheap = `openai/gpt-oss-20b`, strong = `openai/gpt-oss-120b`, both on Gr
 
 **Audit trail.** Every raw model response behind these numbers is committed under [`results/cache/`](results/cache) (one JSON line per call, with tokens and latency), and `results/per_query.jsonl` has each query's routing decision and correctness.
 
-**To complete the benchmark** once the free-tier quota refills (or with any paid key), run `modelrouter bench` again. Every answer already obtained is cached, so it only fills the gaps, then regenerates `results/` (including this table and chart through `python scripts/update_readme.py`).
+**I also tried Google's Gemini free tier** to get a wider cheap/strong gap, and it hit the same wall harder: at the time `gemini-3.5-flash-lite` allowed 500 requests per day, `gemini-3.5-flash` only 20, and the Pro model 0, so no usable strong model could answer even one benchmark's worth of queries. No Gemini numbers appear in this README. Along the way that attempt exposed two real bugs that are now fixed with tests: Gemini bills hidden "thinking" tokens as output but omits them from `completion_tokens` (the client now bills `total_tokens - prompt_tokens`), and rate-limit hints like "retry in 6s" in the error body are now honoured, while multi-hour waits fail fast instead of sleeping.
+
+**To complete the benchmark** once the free-tier quota refills (or with any paid key), run `modelrouter bench` again. The 20B model's daily token allowance refills over 24 hours, and only 246 cheap-model calls and 12 retries of the strong model are missing, so one command finishes the planned 300-query mix. Every answer already obtained is cached, so it only fills the gaps, then regenerates `results/` (including this table and chart through `python scripts/update_readme.py`).
 
 ## Quick start
 
@@ -150,7 +152,7 @@ modelrouter label                       # label training queries with the cheap 
 modelrouter train                       # fit embeddings + logistic regression -> models/classifier.json
 modelrouter bench --dry-run             # print the estimated spend and stop
 modelrouter bench                       # ~300 queries; asks you to confirm any spend, supports --budget
-pytest                                  # 83 tests, fully offline
+pytest                                  # 85 tests, fully offline
 ```
 
 **Cost safety.** Before any run that can spend money, `label` and `bench` print the estimated cost (expected and worst case) and ask for confirmation; `--yes` skips the prompt, `--budget USD` aborts if real spend crosses a cap, and a non-interactive shell refuses to spend without `--yes`. Runs that hit provider errors stop without analysing partial data.
