@@ -25,7 +25,7 @@ from ..types import Completion
 from .runner import ReplayClient, record_key
 from .tasks import MAX_TOKENS, build_messages, score
 
-DEFAULT_THRESHOLDS = [round(t, 2) for t in np.arange(0.0, 1.0001, 0.05)]
+DEFAULT_THRESHOLDS = [float(round(t, 2)) for t in np.arange(0.0, 1.0001, 0.05)]
 RETENTIONS = (1.0, 0.99, 0.98, 0.95, 0.90)
 
 
@@ -238,16 +238,17 @@ def split_half_check(
     """
     rng = np.random.default_rng(seed)
     n = len(strong.correct)
-    saved, kept = [], []
+    saved: list[float] = []
+    kept: list[float] = []
     for _ in range(trials):
         perm = rng.permutation(n)
         a, b = perm[: n // 2], perm[n // 2 :]
-        s_acc_a = strong.correct[a].mean()
-        s_cost_a = strong.cost[a].sum()
+        s_acc_a = float(strong.correct[a].mean())
+        s_cost_a = float(strong.cost[a].sum())
         best_idx, best_save = None, -1e9
         for j, (_, o) in enumerate(sweep):
-            if o.correct[a].mean() >= retention * s_acc_a - 1e-12:
-                save = 1 - o.cost[a].sum() / s_cost_a
+            if float(o.correct[a].mean()) >= retention * s_acc_a - 1e-12:
+                save = 1 - float(o.cost[a].sum()) / s_cost_a
                 if save > best_save:
                     best_idx, best_save = j, save
         if best_idx is None:
@@ -255,9 +256,9 @@ def split_half_check(
             kept.append(1.0)
             continue
         o = sweep[best_idx][1]
-        saved.append(100 * (1 - o.cost[b].sum() / strong.cost[b].sum()))
-        s_acc_b = strong.correct[b].mean()
-        kept.append(o.correct[b].mean() / s_acc_b if s_acc_b > 0 else 1.0)
+        saved.append(100 * (1 - float(o.cost[b].sum()) / float(strong.cost[b].sum())))
+        s_acc_b = float(strong.correct[b].mean())
+        kept.append(float(o.correct[b].mean()) / s_acc_b if s_acc_b > 0 else 1.0)
     return {
         "retention_target": retention,
         "mean_cost_saved_pct": float(np.mean(saved)),

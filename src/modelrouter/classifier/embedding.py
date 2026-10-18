@@ -150,7 +150,7 @@ class EmbeddingClassifier:
         def make() -> LogisticRegression:
             return LogisticRegression(C=C, max_iter=2000, class_weight="balanced")
 
-        folds = max(2, min(cv_folds, int(np.bincount(y).min())))
+        folds = max(2, min(cv_folds, int(np.min(np.bincount(y)))))
         cv = StratifiedKFold(n_splits=folds, shuffle=True, random_state=seed)
         proba = cross_val_predict(make(), x, y, cv=cv, method="predict_proba")[:, 1]
         report = TrainReport(
