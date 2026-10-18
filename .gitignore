@@ -12,7 +12,7 @@ dist/
 build/
 *.egg-info/
 .DS_Store
-results/cache/
+results/cache/mock/
 .fastembed_cache/
 .cache/
 results/mock/

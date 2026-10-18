@@ -1,0 +1,1722 @@
+{
+  "meta": {
+    "cheap_model": "openai/gpt-oss-20b",
+    "strong_model": "openai/gpt-oss-120b",
+    "prices_per_m_tokens": {
+      "cheap": [
+        0.1,
+        0.5
+      ],
+      "strong": [
+        0.15,
+        0.75
+      ]
+    },
+    "n_queries": 52,
+    "by_source": {
+      "gsm8k": 52
+    },
+    "call_errors": {
+      "cheap": 0,
+      "strong": 0
+    },
+    "fallback_enabled": true,
+    "default_threshold": 0.5,
+    "classifier_meta": {
+      "n_train": 748,
+      "n_hard": 122,
+      "cv_accuracy": 0.7032085561497327,
+      "cv_auc": 0.6744749384591211,
+      "cv_folds": 5,
+      "label_source": "empirical (cheap model failed)",
+      "C": 1.0
+    },
+    "temperature": 0.0,
+    "version": "0.1.0",
+    "author": "Aryaveer Mankotia",
+    "generated_at": "2026-10-18T15:30:24+00:00",
+    "mock": false
+  },
+  "baselines": {
+    "always_cheap": {
+      "name": "Always cheap",
+      "kind": "always_cheap",
+      "classifier": null,
+      "threshold": null,
+      "n": 52,
+      "accuracy": 1.0,
+      "ci_low": 0.9312054095871178,
+      "ci_high": 1.0,
+      "total_cost_usd": 0.0039101,
+      "cost_per_1k_usd": 0.07519423076923076,
+      "avg_latency_s": 0.5991990086152398,
+      "pct_answered_by_cheap": 100.0,
+      "escalation_rate_pct": 0.0,
+      "cost_saved_pct": 52.170908179054834,
+      "accuracy_delta_pp": 0.0,
+      "per_source_accuracy": {
+        "gsm8k": 1.0
+      }
+    },
+    "always_strong": {
+      "name": "Always strong",
+      "kind": "always_strong",
+      "classifier": null,
+      "threshold": null,
+      "n": 52,
+      "accuracy": 1.0,
+      "ci_low": 0.9312054095871178,
+      "ci_high": 1.0,
+      "total_cost_usd": 0.00817515,
+      "cost_per_1k_usd": 0.15721442307692307,
+      "avg_latency_s": 0.8117154175376456,
+      "pct_answered_by_cheap": 0.0,
+      "escalation_rate_pct": 0.0,
+      "cost_saved_pct": 0.0,
+      "accuracy_delta_pp": 0.0,
+      "per_source_accuracy": {
+        "gsm8k": 1.0
+      }
+    },
+    "oracle": {
+      "name": "Oracle router (upper bound)",
+      "kind": "oracle",
+      "classifier": null,
+      "threshold": null,
+      "n": 52,
+      "accuracy": 1.0,
+      "ci_low": 0.9312054095871178,
+      "ci_high": 1.0,
+      "total_cost_usd": 0.0039101,
+      "cost_per_1k_usd": 0.07519423076923076,
+      "avg_latency_s": 0.5991990086152398,
+      "pct_answered_by_cheap": 100.0,
+      "escalation_rate_pct": 0.0,
+      "cost_saved_pct": 52.170908179054834,
+      "accuracy_delta_pp": 0.0,
+      "per_source_accuracy": {
+        "gsm8k": 1.0
+      }
+    }
+  },
+  "sweeps": {
+    "embedding": [
+      {
+        "name": "Router (embedding, t=0.00)",
+        "kind": "router",
+        "classifier": "embedding",
+        "threshold": 0.0,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0039101,
+        "cost_per_1k_usd": 0.07519423076923076,
+        "avg_latency_s": 0.607792338769986,
+        "pct_answered_by_cheap": 100.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 52.170908179054834,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (embedding, t=0.05)",
+        "kind": "router",
+        "classifier": "embedding",
+        "threshold": 0.05,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0039101,
+        "cost_per_1k_usd": 0.07519423076923076,
+        "avg_latency_s": 0.607792338769986,
+        "pct_answered_by_cheap": 100.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 52.170908179054834,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (embedding, t=0.10)",
+        "kind": "router",
+        "classifier": "embedding",
+        "threshold": 0.1,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0039101,
+        "cost_per_1k_usd": 0.07519423076923076,
+        "avg_latency_s": 0.607792338769986,
+        "pct_answered_by_cheap": 100.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 52.170908179054834,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (embedding, t=0.15)",
+        "kind": "router",
+        "classifier": "embedding",
+        "threshold": 0.15,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0039101,
+        "cost_per_1k_usd": 0.07519423076923076,
+        "avg_latency_s": 0.607792338769986,
+        "pct_answered_by_cheap": 100.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 52.170908179054834,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (embedding, t=0.20)",
+        "kind": "router",
+        "classifier": "embedding",
+        "threshold": 0.2,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0039101,
+        "cost_per_1k_usd": 0.07519423076923076,
+        "avg_latency_s": 0.607792338769986,
+        "pct_answered_by_cheap": 100.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 52.170908179054834,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (embedding, t=0.25)",
+        "kind": "router",
+        "classifier": "embedding",
+        "threshold": 0.25,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0039101,
+        "cost_per_1k_usd": 0.07519423076923076,
+        "avg_latency_s": 0.607792338769986,
+        "pct_answered_by_cheap": 100.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 52.170908179054834,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (embedding, t=0.30)",
+        "kind": "router",
+        "classifier": "embedding",
+        "threshold": 0.3,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0039101,
+        "cost_per_1k_usd": 0.07519423076923076,
+        "avg_latency_s": 0.607792338769986,
+        "pct_answered_by_cheap": 100.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 52.170908179054834,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (embedding, t=0.35)",
+        "kind": "router",
+        "classifier": "embedding",
+        "threshold": 0.35,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0039101,
+        "cost_per_1k_usd": 0.07519423076923076,
+        "avg_latency_s": 0.607792338769986,
+        "pct_answered_by_cheap": 100.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 52.170908179054834,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (embedding, t=0.40)",
+        "kind": "router",
+        "classifier": "embedding",
+        "threshold": 0.4,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0039101,
+        "cost_per_1k_usd": 0.07519423076923076,
+        "avg_latency_s": 0.607792338769986,
+        "pct_answered_by_cheap": 100.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 52.170908179054834,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (embedding, t=0.45)",
+        "kind": "router",
+        "classifier": "embedding",
+        "threshold": 0.45,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0039395,
+        "cost_per_1k_usd": 0.0757596153846154,
+        "avg_latency_s": 0.6069725783661573,
+        "pct_answered_by_cheap": 98.07692307692307,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 51.81128175018196,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (embedding, t=0.50)",
+        "kind": "router",
+        "classifier": "embedding",
+        "threshold": 0.5,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0043580500000000005,
+        "cost_per_1k_usd": 0.08380865384615385,
+        "avg_latency_s": 0.6281887547123076,
+        "pct_answered_by_cheap": 86.53846153846155,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 46.691498015326935,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (embedding, t=0.55)",
+        "kind": "router",
+        "classifier": "embedding",
+        "threshold": 0.55,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0043915000000000004,
+        "cost_per_1k_usd": 0.08445192307692308,
+        "avg_latency_s": 0.6277408468659604,
+        "pct_answered_by_cheap": 84.61538461538461,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 46.28233121104812,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (embedding, t=0.60)",
+        "kind": "router",
+        "classifier": "embedding",
+        "threshold": 0.6,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0048859,
+        "cost_per_1k_usd": 0.09395961538461539,
+        "avg_latency_s": 0.6526363813461032,
+        "pct_answered_by_cheap": 75.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 40.23473575408403,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (embedding, t=0.65)",
+        "kind": "router",
+        "classifier": "embedding",
+        "threshold": 0.65,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.005563299999999999,
+        "cost_per_1k_usd": 0.10698653846153845,
+        "avg_latency_s": 0.6809757451152948,
+        "pct_answered_by_cheap": 61.53846153846154,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 31.94864926025824,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (embedding, t=0.70)",
+        "kind": "router",
+        "classifier": "embedding",
+        "threshold": 0.7,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.00665315,
+        "cost_per_1k_usd": 0.1279451923076923,
+        "avg_latency_s": 0.7258028742110653,
+        "pct_answered_by_cheap": 42.30769230769231,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 18.617395399472798,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (embedding, t=0.75)",
+        "kind": "router",
+        "classifier": "embedding",
+        "threshold": 0.75,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.00723495,
+        "cost_per_1k_usd": 0.13913365384615387,
+        "avg_latency_s": 0.7510248565964642,
+        "pct_answered_by_cheap": 28.846153846153843,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 11.500706409056718,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (embedding, t=0.80)",
+        "kind": "router",
+        "classifier": "embedding",
+        "threshold": 0.8,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.007765599999999999,
+        "cost_per_1k_usd": 0.14933846153846153,
+        "avg_latency_s": 0.7680889896546432,
+        "pct_answered_by_cheap": 9.615384615384617,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 5.009694011730691,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (embedding, t=0.85)",
+        "kind": "router",
+        "classifier": "embedding",
+        "threshold": 0.85,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.00810385,
+        "cost_per_1k_usd": 0.15584326923076922,
+        "avg_latency_s": 0.7943764391927218,
+        "pct_answered_by_cheap": 1.9230769230769231,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 0.8721552509740074,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (embedding, t=0.90)",
+        "kind": "router",
+        "classifier": "embedding",
+        "threshold": 0.9,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.00817515,
+        "cost_per_1k_usd": 0.15721442307692307,
+        "avg_latency_s": 0.8203087476923918,
+        "pct_answered_by_cheap": 0.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 0.0,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (embedding, t=0.95)",
+        "kind": "router",
+        "classifier": "embedding",
+        "threshold": 0.95,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.00817515,
+        "cost_per_1k_usd": 0.15721442307692307,
+        "avg_latency_s": 0.8203087476923918,
+        "pct_answered_by_cheap": 0.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 0.0,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (embedding, t=1.00)",
+        "kind": "router",
+        "classifier": "embedding",
+        "threshold": 1.0,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.00817515,
+        "cost_per_1k_usd": 0.15721442307692307,
+        "avg_latency_s": 0.8203087476923918,
+        "pct_answered_by_cheap": 0.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 0.0,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      }
+    ],
+    "heuristic": [
+      {
+        "name": "Router (heuristic, t=0.00)",
+        "kind": "router",
+        "classifier": "heuristic",
+        "threshold": 0.0,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0039101,
+        "cost_per_1k_usd": 0.07519423076923076,
+        "avg_latency_s": 0.5992428211345844,
+        "pct_answered_by_cheap": 100.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 52.170908179054834,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (heuristic, t=0.05)",
+        "kind": "router",
+        "classifier": "heuristic",
+        "threshold": 0.05,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0041443999999999995,
+        "cost_per_1k_usd": 0.07969999999999998,
+        "avg_latency_s": 0.6180432177691098,
+        "pct_answered_by_cheap": 96.15384615384616,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 49.30490572038435,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (heuristic, t=0.10)",
+        "kind": "router",
+        "classifier": "heuristic",
+        "threshold": 0.1,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.00437175,
+        "cost_per_1k_usd": 0.08407211538461538,
+        "avg_latency_s": 0.6242148219420275,
+        "pct_answered_by_cheap": 90.38461538461539,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 46.523916992348774,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (heuristic, t=0.15)",
+        "kind": "router",
+        "classifier": "heuristic",
+        "threshold": 0.15,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.005523299999999999,
+        "cost_per_1k_usd": 0.10621730769230767,
+        "avg_latency_s": 0.6816207579227361,
+        "pct_answered_by_cheap": 69.23076923076923,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 32.43793691858867,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (heuristic, t=0.20)",
+        "kind": "router",
+        "classifier": "heuristic",
+        "threshold": 0.2,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.00615395,
+        "cost_per_1k_usd": 0.1183451923076923,
+        "avg_latency_s": 0.7115380063464377,
+        "pct_answered_by_cheap": 51.92307692307693,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 24.723705375436545,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (heuristic, t=0.25)",
+        "kind": "router",
+        "classifier": "heuristic",
+        "threshold": 0.25,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.00635615,
+        "cost_per_1k_usd": 0.12223365384615384,
+        "avg_latency_s": 0.7066233204618934,
+        "pct_answered_by_cheap": 44.230769230769226,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 22.250356262576236,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (heuristic, t=0.30)",
+        "kind": "router",
+        "classifier": "heuristic",
+        "threshold": 0.3,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.007245700000000001,
+        "cost_per_1k_usd": 0.13934038461538462,
+        "avg_latency_s": 0.7393870937703468,
+        "pct_answered_by_cheap": 25.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 11.369210350880412,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (heuristic, t=0.35)",
+        "kind": "router",
+        "classifier": "heuristic",
+        "threshold": 0.35,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0077307999999999995,
+        "cost_per_1k_usd": 0.14866923076923075,
+        "avg_latency_s": 0.7950272860966484,
+        "pct_answered_by_cheap": 11.538461538461538,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 5.43537427447816,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (heuristic, t=0.40)",
+        "kind": "router",
+        "classifier": "heuristic",
+        "threshold": 0.4,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.007961949999999999,
+        "cost_per_1k_usd": 0.15311442307692305,
+        "avg_latency_s": 0.8088008566539009,
+        "pct_answered_by_cheap": 5.769230769230769,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 2.6079032189012055,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (heuristic, t=0.45)",
+        "kind": "router",
+        "classifier": "heuristic",
+        "threshold": 0.45,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.008041399999999999,
+        "cost_per_1k_usd": 0.15464230769230766,
+        "avg_latency_s": 0.8082202364614484,
+        "pct_answered_by_cheap": 3.8461538461538463,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 1.6360556075423927,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (heuristic, t=0.50)",
+        "kind": "router",
+        "classifier": "heuristic",
+        "threshold": 0.5,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0081105,
+        "cost_per_1k_usd": 0.15597115384615384,
+        "avg_latency_s": 0.8118431451151152,
+        "pct_answered_by_cheap": 1.9230769230769231,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 0.7908111777765687,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (heuristic, t=0.55)",
+        "kind": "router",
+        "classifier": "heuristic",
+        "threshold": 0.55,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0081105,
+        "cost_per_1k_usd": 0.15597115384615384,
+        "avg_latency_s": 0.8118431451151152,
+        "pct_answered_by_cheap": 1.9230769230769231,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 0.7908111777765687,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (heuristic, t=0.60)",
+        "kind": "router",
+        "classifier": "heuristic",
+        "threshold": 0.6,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.00817515,
+        "cost_per_1k_usd": 0.15721442307692307,
+        "avg_latency_s": 0.8117592300569902,
+        "pct_answered_by_cheap": 0.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 0.0,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (heuristic, t=0.65)",
+        "kind": "router",
+        "classifier": "heuristic",
+        "threshold": 0.65,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.00817515,
+        "cost_per_1k_usd": 0.15721442307692307,
+        "avg_latency_s": 0.8117592300569902,
+        "pct_answered_by_cheap": 0.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 0.0,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (heuristic, t=0.70)",
+        "kind": "router",
+        "classifier": "heuristic",
+        "threshold": 0.7,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.00817515,
+        "cost_per_1k_usd": 0.15721442307692307,
+        "avg_latency_s": 0.8117592300569902,
+        "pct_answered_by_cheap": 0.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 0.0,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (heuristic, t=0.75)",
+        "kind": "router",
+        "classifier": "heuristic",
+        "threshold": 0.75,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.00817515,
+        "cost_per_1k_usd": 0.15721442307692307,
+        "avg_latency_s": 0.8117592300569902,
+        "pct_answered_by_cheap": 0.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 0.0,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (heuristic, t=0.80)",
+        "kind": "router",
+        "classifier": "heuristic",
+        "threshold": 0.8,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.00817515,
+        "cost_per_1k_usd": 0.15721442307692307,
+        "avg_latency_s": 0.8117592300569902,
+        "pct_answered_by_cheap": 0.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 0.0,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (heuristic, t=0.85)",
+        "kind": "router",
+        "classifier": "heuristic",
+        "threshold": 0.85,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.00817515,
+        "cost_per_1k_usd": 0.15721442307692307,
+        "avg_latency_s": 0.8117592300569902,
+        "pct_answered_by_cheap": 0.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 0.0,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (heuristic, t=0.90)",
+        "kind": "router",
+        "classifier": "heuristic",
+        "threshold": 0.9,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.00817515,
+        "cost_per_1k_usd": 0.15721442307692307,
+        "avg_latency_s": 0.8117592300569902,
+        "pct_answered_by_cheap": 0.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 0.0,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (heuristic, t=0.95)",
+        "kind": "router",
+        "classifier": "heuristic",
+        "threshold": 0.95,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.00817515,
+        "cost_per_1k_usd": 0.15721442307692307,
+        "avg_latency_s": 0.8117592300569902,
+        "pct_answered_by_cheap": 0.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 0.0,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (heuristic, t=1.00)",
+        "kind": "router",
+        "classifier": "heuristic",
+        "threshold": 1.0,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.00817515,
+        "cost_per_1k_usd": 0.15721442307692307,
+        "avg_latency_s": 0.8117592300569902,
+        "pct_answered_by_cheap": 0.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 0.0,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      }
+    ],
+    "random": [
+      {
+        "name": "Router (random, t=0.00)",
+        "kind": "router",
+        "classifier": "random",
+        "threshold": 0.0,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0039101,
+        "cost_per_1k_usd": 0.07519423076923076,
+        "avg_latency_s": 0.5991999277108474,
+        "pct_answered_by_cheap": 100.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 52.170908179054834,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (random, t=0.05)",
+        "kind": "router",
+        "classifier": "random",
+        "threshold": 0.05,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.004493349999999999,
+        "cost_per_1k_usd": 0.08641057692307691,
+        "avg_latency_s": 0.6214037610572212,
+        "pct_answered_by_cheap": 90.38461538461539,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 45.036482511024275,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (random, t=0.10)",
+        "kind": "router",
+        "classifier": "random",
+        "threshold": 0.1,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.004710349999999999,
+        "cost_per_1k_usd": 0.09058365384615384,
+        "avg_latency_s": 0.6283143267688641,
+        "pct_answered_by_cheap": 84.61538461538461,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 42.3820969645817,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (random, t=0.15)",
+        "kind": "router",
+        "classifier": "random",
+        "threshold": 0.15,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.00475365,
+        "cost_per_1k_usd": 0.09141634615384615,
+        "avg_latency_s": 0.6304877522883404,
+        "pct_answered_by_cheap": 80.76923076923077,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 41.85244307443901,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (random, t=0.20)",
+        "kind": "router",
+        "classifier": "random",
+        "threshold": 0.2,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.005102349999999999,
+        "cost_per_1k_usd": 0.09812211538461538,
+        "avg_latency_s": 0.64956786530736,
+        "pct_answered_by_cheap": 71.15384615384616,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 37.587077912943506,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (random, t=0.25)",
+        "kind": "router",
+        "classifier": "random",
+        "threshold": 0.25,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.005310649999999999,
+        "cost_per_1k_usd": 0.10212788461538459,
+        "avg_latency_s": 0.656226027980805,
+        "pct_answered_by_cheap": 65.38461538461539,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 35.0391124321878,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (random, t=0.30)",
+        "kind": "router",
+        "classifier": "random",
+        "threshold": 0.3,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0054911,
+        "cost_per_1k_usd": 0.10559807692307692,
+        "avg_latency_s": 0.6677509703076794,
+        "pct_answered_by_cheap": 61.53846153846154,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 32.83181348354466,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (random, t=0.35)",
+        "kind": "router",
+        "classifier": "random",
+        "threshold": 0.35,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.005583299999999999,
+        "cost_per_1k_usd": 0.10737115384615384,
+        "avg_latency_s": 0.6730351225577089,
+        "pct_answered_by_cheap": 59.61538461538461,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 31.704005431093023,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (random, t=0.40)",
+        "kind": "router",
+        "classifier": "random",
+        "threshold": 0.4,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.00567505,
+        "cost_per_1k_usd": 0.10913557692307693,
+        "avg_latency_s": 0.6729749895577977,
+        "pct_answered_by_cheap": 55.769230769230774,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 30.581701864797594,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (random, t=0.45)",
+        "kind": "router",
+        "classifier": "random",
+        "threshold": 0.45,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0059558499999999995,
+        "cost_per_1k_usd": 0.1145355769230769,
+        "avg_latency_s": 0.6917453477119404,
+        "pct_answered_by_cheap": 50.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 27.146902503317992,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (random, t=0.50)",
+        "kind": "router",
+        "classifier": "random",
+        "threshold": 0.5,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.005985249999999999,
+        "cost_per_1k_usd": 0.11510096153846153,
+        "avg_latency_s": 0.6909255873081117,
+        "pct_answered_by_cheap": 48.07692307692308,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 26.78727607444513,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (random, t=0.55)",
+        "kind": "router",
+        "classifier": "random",
+        "threshold": 0.55,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.006613,
+        "cost_per_1k_usd": 0.12717307692307692,
+        "avg_latency_s": 0.7117687964808004,
+        "pct_answered_by_cheap": 38.46153846153847,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 19.10851788652197,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (random, t=0.60)",
+        "kind": "router",
+        "classifier": "random",
+        "threshold": 0.6,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.006841,
+        "cost_per_1k_usd": 0.1315576923076923,
+        "avg_latency_s": 0.716124993615477,
+        "pct_answered_by_cheap": 32.69230769230769,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 16.319578234038527,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (random, t=0.65)",
+        "kind": "router",
+        "classifier": "random",
+        "threshold": 0.65,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0070231,
+        "cost_per_1k_usd": 0.13505961538461536,
+        "avg_latency_s": 0.7252207099616219,
+        "pct_answered_by_cheap": 26.923076923076923,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 14.092096169489254,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (random, t=0.70)",
+        "kind": "router",
+        "classifier": "random",
+        "threshold": 0.7,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0071089000000000005,
+        "cost_per_1k_usd": 0.13670961538461537,
+        "avg_latency_s": 0.7291968806538744,
+        "pct_answered_by_cheap": 25.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 13.04257414237048,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (random, t=0.75)",
+        "kind": "router",
+        "classifier": "random",
+        "threshold": 0.75,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.00714795,
+        "cost_per_1k_usd": 0.13746057692307692,
+        "avg_latency_s": 0.7300759007112692,
+        "pct_answered_by_cheap": 23.076923076923077,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 12.564907065925404,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (random, t=0.80)",
+        "kind": "router",
+        "classifier": "random",
+        "threshold": 0.8,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0072019,
+        "cost_per_1k_usd": 0.13849807692307692,
+        "avg_latency_s": 0.7297484087307217,
+        "pct_answered_by_cheap": 21.153846153846153,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 11.904980336752242,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (random, t=0.85)",
+        "kind": "router",
+        "classifier": "random",
+        "threshold": 0.85,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.007575300000000001,
+        "cost_per_1k_usd": 0.1456788461538462,
+        "avg_latency_s": 0.7769222877684044,
+        "pct_answered_by_cheap": 13.461538461538462,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 7.337480046237681,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (random, t=0.90)",
+        "kind": "router",
+        "classifier": "random",
+        "threshold": 0.9,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0077111,
+        "cost_per_1k_usd": 0.14829038461538463,
+        "avg_latency_s": 0.7818001371331496,
+        "pct_answered_by_cheap": 9.615384615384617,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 5.676348446205886,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (random, t=0.95)",
+        "kind": "router",
+        "classifier": "random",
+        "threshold": 0.95,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.00807685,
+        "cost_per_1k_usd": 0.15532403846153844,
+        "avg_latency_s": 0.8036276194982818,
+        "pct_answered_by_cheap": 3.8461538461538463,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 1.2024244203470371,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      {
+        "name": "Router (random, t=1.00)",
+        "kind": "router",
+        "classifier": "random",
+        "threshold": 1.0,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.00817515,
+        "cost_per_1k_usd": 0.15721442307692307,
+        "avg_latency_s": 0.8117163366332534,
+        "pct_answered_by_cheap": 0.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 0.0,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      }
+    ]
+  },
+  "default_threshold": 0.5,
+  "saved_at_accuracy_retention": {
+    "embedding": {
+      "1.00": {
+        "name": "Router (embedding, t=0.00)",
+        "kind": "router",
+        "classifier": "embedding",
+        "threshold": 0.0,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0039101,
+        "cost_per_1k_usd": 0.07519423076923076,
+        "avg_latency_s": 0.607792338769986,
+        "pct_answered_by_cheap": 100.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 52.170908179054834,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      "0.99": {
+        "name": "Router (embedding, t=0.00)",
+        "kind": "router",
+        "classifier": "embedding",
+        "threshold": 0.0,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0039101,
+        "cost_per_1k_usd": 0.07519423076923076,
+        "avg_latency_s": 0.607792338769986,
+        "pct_answered_by_cheap": 100.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 52.170908179054834,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      "0.98": {
+        "name": "Router (embedding, t=0.00)",
+        "kind": "router",
+        "classifier": "embedding",
+        "threshold": 0.0,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0039101,
+        "cost_per_1k_usd": 0.07519423076923076,
+        "avg_latency_s": 0.607792338769986,
+        "pct_answered_by_cheap": 100.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 52.170908179054834,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      "0.95": {
+        "name": "Router (embedding, t=0.00)",
+        "kind": "router",
+        "classifier": "embedding",
+        "threshold": 0.0,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0039101,
+        "cost_per_1k_usd": 0.07519423076923076,
+        "avg_latency_s": 0.607792338769986,
+        "pct_answered_by_cheap": 100.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 52.170908179054834,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      "0.90": {
+        "name": "Router (embedding, t=0.00)",
+        "kind": "router",
+        "classifier": "embedding",
+        "threshold": 0.0,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0039101,
+        "cost_per_1k_usd": 0.07519423076923076,
+        "avg_latency_s": 0.607792338769986,
+        "pct_answered_by_cheap": 100.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 52.170908179054834,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      }
+    },
+    "heuristic": {
+      "1.00": {
+        "name": "Router (heuristic, t=0.00)",
+        "kind": "router",
+        "classifier": "heuristic",
+        "threshold": 0.0,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0039101,
+        "cost_per_1k_usd": 0.07519423076923076,
+        "avg_latency_s": 0.5992428211345844,
+        "pct_answered_by_cheap": 100.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 52.170908179054834,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      "0.99": {
+        "name": "Router (heuristic, t=0.00)",
+        "kind": "router",
+        "classifier": "heuristic",
+        "threshold": 0.0,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0039101,
+        "cost_per_1k_usd": 0.07519423076923076,
+        "avg_latency_s": 0.5992428211345844,
+        "pct_answered_by_cheap": 100.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 52.170908179054834,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      "0.98": {
+        "name": "Router (heuristic, t=0.00)",
+        "kind": "router",
+        "classifier": "heuristic",
+        "threshold": 0.0,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0039101,
+        "cost_per_1k_usd": 0.07519423076923076,
+        "avg_latency_s": 0.5992428211345844,
+        "pct_answered_by_cheap": 100.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 52.170908179054834,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      "0.95": {
+        "name": "Router (heuristic, t=0.00)",
+        "kind": "router",
+        "classifier": "heuristic",
+        "threshold": 0.0,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0039101,
+        "cost_per_1k_usd": 0.07519423076923076,
+        "avg_latency_s": 0.5992428211345844,
+        "pct_answered_by_cheap": 100.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 52.170908179054834,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      "0.90": {
+        "name": "Router (heuristic, t=0.00)",
+        "kind": "router",
+        "classifier": "heuristic",
+        "threshold": 0.0,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0039101,
+        "cost_per_1k_usd": 0.07519423076923076,
+        "avg_latency_s": 0.5992428211345844,
+        "pct_answered_by_cheap": 100.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 52.170908179054834,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      }
+    },
+    "random": {
+      "1.00": {
+        "name": "Router (random, t=0.00)",
+        "kind": "router",
+        "classifier": "random",
+        "threshold": 0.0,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0039101,
+        "cost_per_1k_usd": 0.07519423076923076,
+        "avg_latency_s": 0.5991999277108474,
+        "pct_answered_by_cheap": 100.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 52.170908179054834,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      "0.99": {
+        "name": "Router (random, t=0.00)",
+        "kind": "router",
+        "classifier": "random",
+        "threshold": 0.0,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0039101,
+        "cost_per_1k_usd": 0.07519423076923076,
+        "avg_latency_s": 0.5991999277108474,
+        "pct_answered_by_cheap": 100.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 52.170908179054834,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      "0.98": {
+        "name": "Router (random, t=0.00)",
+        "kind": "router",
+        "classifier": "random",
+        "threshold": 0.0,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0039101,
+        "cost_per_1k_usd": 0.07519423076923076,
+        "avg_latency_s": 0.5991999277108474,
+        "pct_answered_by_cheap": 100.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 52.170908179054834,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      "0.95": {
+        "name": "Router (random, t=0.00)",
+        "kind": "router",
+        "classifier": "random",
+        "threshold": 0.0,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0039101,
+        "cost_per_1k_usd": 0.07519423076923076,
+        "avg_latency_s": 0.5991999277108474,
+        "pct_answered_by_cheap": 100.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 52.170908179054834,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      },
+      "0.90": {
+        "name": "Router (random, t=0.00)",
+        "kind": "router",
+        "classifier": "random",
+        "threshold": 0.0,
+        "n": 52,
+        "accuracy": 1.0,
+        "ci_low": 0.9312054095871178,
+        "ci_high": 1.0,
+        "total_cost_usd": 0.0039101,
+        "cost_per_1k_usd": 0.07519423076923076,
+        "avg_latency_s": 0.5991999277108474,
+        "pct_answered_by_cheap": 100.0,
+        "escalation_rate_pct": 0.0,
+        "cost_saved_pct": 52.170908179054834,
+        "accuracy_delta_pp": 0.0,
+        "per_source_accuracy": {
+          "gsm8k": 1.0
+        }
+      }
+    }
+  },
+  "split_half_robustness": {
+    "embedding": {
+      "retention_target": 0.95,
+      "mean_cost_saved_pct": 52.19795552909357,
+      "p05_cost_saved_pct": 47.573747398900146,
+      "p95_cost_saved_pct": 56.064346972138175,
+      "mean_accuracy_retained": 1.0,
+      "p05_accuracy_retained": 1.0,
+      "trials": 300
+    },
+    "heuristic": {
+      "retention_target": 0.95,
+      "mean_cost_saved_pct": 52.19795552909357,
+      "p05_cost_saved_pct": 47.573747398900146,
+      "p95_cost_saved_pct": 56.064346972138175,
+      "mean_accuracy_retained": 1.0,
+      "p05_accuracy_retained": 1.0,
+      "trials": 300
+    },
+    "random": {
+      "retention_target": 0.95,
+      "mean_cost_saved_pct": 52.19795552909357,
+      "p05_cost_saved_pct": 47.573747398900146,
+      "p95_cost_saved_pct": 56.064346972138175,
+      "mean_accuracy_retained": 1.0,
+      "p05_accuracy_retained": 1.0,
+      "trials": 300
+    }
+  },
+  "classifier_eval": {
+    "embedding": {
+      "auc_predicting_cheap_failure": null,
+      "avg_classify_ms": 8.593330154746162
+    },
+    "heuristic": {
+      "auc_predicting_cheap_failure": null,
+      "avg_classify_ms": 0.04381251934459075
+    },
+    "random": {
+      "auc_predicting_cheap_failure": null,
+      "avg_classify_ms": 0.0009190956076893669
+    }
+  }
+}
