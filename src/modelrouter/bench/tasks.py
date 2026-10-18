@@ -23,8 +23,8 @@ SYSTEM_PROMPTS = {
     ),
 }
 # Output-token caps per task, and the average output length we assume for cost *estimates*.
-MAX_TOKENS = {"math": 512, "mcq": 384, "qa": 128}
-EXPECTED_OUTPUT_TOKENS = {"math": 220, "mcq": 120, "qa": 25}
+MAX_TOKENS = {"math": 1024, "mcq": 768, "qa": 512}
+EXPECTED_OUTPUT_TOKENS = {"math": 300, "mcq": 200, "qa": 80}
 
 
 def build_messages(record: Record) -> list[Message]:

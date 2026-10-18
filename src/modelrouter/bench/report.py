@@ -62,9 +62,10 @@ def write_pareto(
     ax.set_axisbelow(True)
     ax.tick_params(colors=c["ink2"], labelsize=9)
 
-    for cname, pts in analysis.sweeps.items():
+    for rank, (cname, pts) in enumerate(analysis.sweeps.items()):
         if cname not in c:
             continue
+        z = 6 - rank  # first-listed router (the real one) draws on top of the baselines
         pts = sorted(pts, key=lambda m: (m.total_cost_usd, m.accuracy))
         xs = [m.total_cost_usd for m in pts]
         ys = [m.accuracy * 100 for m in pts]
@@ -78,7 +79,7 @@ def write_pareto(
             markeredgecolor=c["surface"],
             markeredgewidth=1.5,
             label=LABELS[cname],
-            zorder=3,
+            zorder=z,
         )
         for m in pts:
             if m.threshold is not None and abs(m.threshold - analysis.default_threshold) < 1e-9:
@@ -89,7 +90,7 @@ def write_pareto(
                     facecolors="none",
                     edgecolors=c[cname],
                     linewidths=2,
-                    zorder=4,
+                    zorder=z + 0.5,
                 )
 
     base = analysis.baselines
@@ -107,17 +108,21 @@ def write_pareto(
             color=c["ink"],
             edgecolors=c["surface"],
             linewidths=1.5,
-            zorder=5,
+            zorder=8,
         )
         ax.annotate(
             label,
             (m.total_cost_usd, m.accuracy * 100),
             textcoords="offset points",
-            xytext=(8, -12 if key != "always_strong" else 8),
+            xytext={"always_cheap": (8, -16), "oracle": (8, 9), "always_strong": (-8, 9)}[key],
+            ha="left" if key != "always_strong" else "right",
             fontsize=9,
             color=c["ink"],
         )
 
+    accs = [m.accuracy * 100 for pts in analysis.sweeps.values() for m in pts]
+    accs += [m.accuracy * 100 for m in base.values()]
+    ax.set_ylim(max(0.0, min(accs) - 4), min(100.5, max(accs) + 2.5))
     ax.set_xlabel("Total cost for the benchmark (USD)", color=c["ink2"], fontsize=10)
     ax.set_ylabel("Accuracy (%)", color=c["ink2"], fontsize=10)
     title = "Cost vs accuracy: closer to the top-left is better"

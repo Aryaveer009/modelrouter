@@ -196,6 +196,14 @@ def cmd_bench(args: argparse.Namespace) -> int:
         "strong": ResponseCache(cache_dir / f"{_slug(settings.strong.name)}.jsonl"),
     }
     specs = {"cheap": settings.cheap, "strong": settings.strong}
+    if args.only_cached:
+        # Evaluate only queries both models have already answered (e.g. after hitting a
+        # provider's daily quota). The README must say which subset was used.
+        records = [r for r in records if all(c.get(record_key(r)) for c in caches.values())]
+        if not records:
+            _log("--only-cached: no query has answers from both models.")
+            return 1
+        _log(f"--only-cached: evaluating {len(records)} queries answered by both models.")
     todo = {t: [r for r in records if caches[t].get(record_key(r)) is None] for t in caches}
 
     if args.from_cache and any(todo.values()):
@@ -235,6 +243,12 @@ def cmd_bench(args: argparse.Namespace) -> int:
             return 1
         if budget is not None:
             budget -= stats[tier].spend_usd
+        if stats[tier].errors:
+            _log(
+                f"{stats[tier].errors} {specs[tier].name} calls failed (rate limit/outage). "
+                "Not analysing partial data; re-run the same command to resume from the cache."
+            )
+            return 1
 
     classifiers: dict = {"heuristic": HeuristicClassifier(), "random": RandomClassifier()}
     if settings.classifier_path.exists():
@@ -375,6 +389,11 @@ def build_parser() -> argparse.ArgumentParser:
     s.add_argument("--dry-run", action="store_true", help="only print the cost estimate")
     s.add_argument(
         "--from-cache", action="store_true", help="never call models; use cached responses"
+    )
+    s.add_argument(
+        "--only-cached",
+        action="store_true",
+        help="evaluate only queries both models already answered (no model calls)",
     )
     s.add_argument("--mock", action="store_true", help="offline fake models (results marked MOCK)")
     s.add_argument("--budget", type=float, default=None, help="hard USD cap; abort if exceeded")
