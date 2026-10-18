@@ -36,3 +36,30 @@ def test_format_usd_handles_tiny_amounts():
     assert format_usd(0) == "$0"
     assert format_usd(0.00012) == "$0.00012"
     assert format_usd(12.5) == "$12.50"
+
+
+def test_hidden_thinking_tokens_are_billed_as_output():
+    """Providers like Gemini omit thinking tokens from completion_tokens but include them in total."""
+    from modelrouter.config import ModelSpec
+    from modelrouter.models import OpenAICompatClient
+
+    client = OpenAICompatClient(ModelSpec("m", "http://x", "k", 1.0, 2.0))
+    data = {
+        "choices": [{"message": {"content": "hi"}, "finish_reason": "stop"}],
+        "usage": {"prompt_tokens": 95, "completion_tokens": 79, "total_tokens": 266},
+    }
+    comp = client._parse(data, [{"role": "user", "content": "x"}], 0.1)
+    assert comp.usage.prompt_tokens == 95 and comp.usage.completion_tokens == 171
+
+    data["usage"]["total_tokens"] = 174  # nothing hidden: unchanged
+    assert (
+        client._parse(data, [{"role": "user", "content": "x"}], 0.1).usage.completion_tokens == 79
+    )
+
+
+def test_retry_hint_parsing():
+    from modelrouter.models import _retry_hint
+
+    assert float(_retry_hint("limit hit. Please retry in 6.27s.")) == 6.27  # type: ignore[arg-type]
+    assert float(_retry_hint("Please retry in 5h17m2.5s")) == 5 * 3600 + 17 * 60 + 2.5  # type: ignore[arg-type]
+    assert _retry_hint("nothing useful here") is None

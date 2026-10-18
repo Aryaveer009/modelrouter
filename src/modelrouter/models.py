@@ -92,7 +92,10 @@ class OpenAICompatClient:
             if resp.status_code == 400 and self._adapt_payload(payload, resp.text):
                 continue  # retry immediately with an adjusted payload
             if resp.status_code in {408, 409, 429} or resp.status_code >= 500:
-                await self._backoff(attempt, resp.headers.get("retry-after"))
+                hint = resp.headers.get("retry-after") or _retry_hint(resp.text)
+                if hint is not None and _as_seconds(hint) > MAX_WAIT_S:
+                    break  # e.g. a daily quota that refills in hours: fail fast, resume later
+                await self._backoff(attempt, hint)
                 continue
             break  # other 4xx errors are not retryable
         raise ModelError(f"{self.spec.name}: {last_error}")
@@ -116,10 +119,7 @@ class OpenAICompatClient:
     async def _backoff(attempt: int, retry_after: str | None) -> None:
         delay = min(30.0, 1.5 * (2**attempt)) + random.random()
         if retry_after:
-            try:
-                delay = max(delay, min(60.0, float(retry_after)))
-            except ValueError:
-                pass
+            delay = max(delay, _as_seconds(retry_after) + random.random())
         await asyncio.sleep(delay)
 
     def _parse(self, data: dict, messages: list[Message], elapsed: float) -> Completion:
@@ -130,7 +130,14 @@ class OpenAICompatClient:
             raise ModelError(f"{self.spec.name}: malformed response: {str(data)[:300]}") from exc
         usage_raw = data.get("usage") or {}
         if "prompt_tokens" in usage_raw and "completion_tokens" in usage_raw:
-            usage = Usage(int(usage_raw["prompt_tokens"]), int(usage_raw["completion_tokens"]))
+            prompt = int(usage_raw["prompt_tokens"])
+            completion = int(usage_raw["completion_tokens"])
+            # Some providers (e.g. Gemini's OpenAI endpoint) bill hidden "thinking" tokens as
+            # output but leave them out of completion_tokens; total_tokens still includes them.
+            total = usage_raw.get("total_tokens")
+            if isinstance(total, int):
+                completion = max(completion, total - prompt)
+            usage = Usage(prompt, completion)
         else:
             usage = Usage(
                 estimate_tokens(messages_to_text(messages)), estimate_tokens(text), estimated=True
@@ -143,6 +150,26 @@ class OpenAICompatClient:
             finish_reason=choice.get("finish_reason"),
             avg_logprob=_avg_logprob(choice.get("logprobs")),
         )
+
+
+MAX_WAIT_S = 300.0  # never sleep longer than this on a rate-limit hint
+_RETRY_IN = re.compile(r"retry in (?:(\d+)h)?(?:(\d+)m)?(?:([\d.]+)s)?", re.IGNORECASE)
+
+
+def _retry_hint(body: str) -> str | None:
+    """Parse hints like 'Please retry in 6.27s' / '5h17m2.4s' from a provider error body."""
+    m = _RETRY_IN.search(body)
+    if not m or not any(m.groups()):
+        return None
+    h, mi, sec = m.groups()
+    return str(int(h or 0) * 3600 + int(mi or 0) * 60 + float(sec or 0))
+
+
+def _as_seconds(value: str) -> float:
+    try:
+        return float(value)
+    except ValueError:
+        return 0.0
 
 
 def _avg_logprob(logprobs: dict | None) -> float | None:
