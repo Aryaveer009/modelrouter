@@ -100,7 +100,7 @@ def live_panel() -> None:
                 "latency_ms",
             ]
         ],
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
     )
 
@@ -163,7 +163,7 @@ with bench_tab:
                 }
             ),
             hide_index=True,
-            use_container_width=True,
+            width="stretch",
         )
         png = RESULTS_DIR / "pareto.png"
         if png.exists():
@@ -173,7 +173,7 @@ with bench_tab:
             ["threshold", "accuracy", "total_cost_usd", "pct_answered_by_cheap", "cost_saved_pct"]
         ]
         st.line_chart(sweep.set_index("total_cost_usd")["accuracy"])
-        st.dataframe(sweep, hide_index=True, use_container_width=True)
+        st.dataframe(sweep, hide_index=True, width="stretch")
 
 with try_tab:
     st.write(
