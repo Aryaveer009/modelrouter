@@ -62,7 +62,11 @@ class OpenAICompatClient:
         max_tokens: int | None = None,
         want_logprobs: bool = False,
     ) -> Completion:
-        payload: dict[str, object] = {"model": self.spec.name, "messages": messages}
+        payload: dict[str, object] = {
+            **self.spec.extra_body,
+            "model": self.spec.name,
+            "messages": messages,
+        }
         if temperature is not None:
             payload["temperature"] = temperature
         if max_tokens is not None:

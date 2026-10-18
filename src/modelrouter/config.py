@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
+import json
 import os
 from collections.abc import Mapping
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -23,6 +24,8 @@ class ModelSpec:
     api_key: str
     price_in_per_m: float
     price_out_per_m: float
+    # Extra JSON fields merged into every request body (e.g. {"reasoning_effort": "low"}).
+    extra_body: dict[str, object] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
@@ -81,6 +84,18 @@ class Settings:
                 return default
             return raw in {"1", "true", "yes", "on"}
 
+        def extra(prefix: str) -> dict[str, object]:
+            raw = get(f"{prefix}_EXTRA_BODY")
+            if not raw:
+                return {}
+            try:
+                parsed = json.loads(raw)
+            except json.JSONDecodeError as exc:
+                raise ConfigError(f"{prefix}_EXTRA_BODY must be valid JSON") from exc
+            if not isinstance(parsed, dict):
+                raise ConfigError(f"{prefix}_EXTRA_BODY must be a JSON object")
+            return parsed
+
         def spec(prefix: str, default_in: float, default_out: float) -> ModelSpec:
             return ModelSpec(
                 name=get(f"{prefix}_MODEL"),
@@ -88,6 +103,7 @@ class Settings:
                 api_key=get(f"{prefix}_API_KEY"),
                 price_in_per_m=num(f"{prefix}_PRICE_IN_PER_M", default_in),
                 price_out_per_m=num(f"{prefix}_PRICE_OUT_PER_M", default_out),
+                extra_body=extra(prefix),
             )
 
         threshold = num("ROUTER_CONFIDENCE_THRESHOLD", 0.5)
