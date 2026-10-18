@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="340" viewBox="0 0 1200 340" role="img" aria-labelledby="t d">
+  <title id="t">ModelRouter</title>
+  <desc id="d">A query enters a router that sends easy requests to a cheap model and hard requests to a strong model.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f172a"/>
+      <stop offset="0.55" stop-color="#1e1b4b"/>
+      <stop offset="1" stop-color="#0b3b3a"/>
+    </linearGradient>
+    <linearGradient id="title" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7dd3fc"/>
+      <stop offset="1" stop-color="#a78bfa"/>
+    </linearGradient>
+    <linearGradient id="cheap" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#34d399"/>
+      <stop offset="1" stop-color="#10b981"/>
+    </linearGradient>
+    <linearGradient id="strong" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#a78bfa"/>
+      <stop offset="1" stop-color="#7c3aed"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#94a3b8"/>
+    </marker>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.04"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="340" rx="18" fill="url(#bg)"/>
+  <rect width="1200" height="340" rx="18" fill="url(#grid)"/>
+
+  <g font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+    <text x="64" y="132" font-size="76" font-weight="800" fill="url(#title)" letter-spacing="-1.5">ModelRouter</text>
+    <text x="68" y="178" font-size="23" fill="#cbd5e1">Route easy queries to a cheap model,</text>
+    <text x="68" y="208" font-size="23" fill="#cbd5e1">hard ones to a strong model.</text>
+    <text x="68" y="238" font-size="23" fill="#cbd5e1">Pay for quality only when you need it.</text>
+    <text x="68" y="278" font-size="15" fill="#94a3b8">OpenAI-compatible proxy  ·  classifier  ·  fallback  ·  benchmark</text>
+    <text x="68" y="314" font-size="15" fill="#64748b">Built by Aryaveer Mankotia · github.com/Aryaveer009</text>
+  </g>
+
+  <!-- routing diagram -->
+  <g transform="translate(700,0)" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+    <rect x="0" y="140" width="96" height="48" rx="12" fill="#1e293b" stroke="#475569"/>
+    <text x="48" y="170" font-size="16" fill="#e2e8f0" text-anchor="middle">query</text>
+
+    <line x1="98" y1="164" x2="168" y2="164" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <polygon points="212,112 262,164 212,216 162,164" fill="#0ea5e9" fill-opacity="0.18" stroke="#38bdf8" stroke-width="2"/>
+    <text x="212" y="159" font-size="13" fill="#e0f2fe" text-anchor="middle" font-weight="600">router</text>
+    <text x="212" y="176" font-size="11" fill="#7dd3fc" text-anchor="middle">P(hard)</text>
+
+    <path d="M246 140 C 300 100, 310 90, 348 84" fill="none" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M246 188 C 300 228, 310 238, 348 244" fill="none" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M404 112 C 440 150, 440 150, 404 214" fill="none" stroke="#fbbf24" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+
+    <rect x="350" y="52" width="110" height="64" rx="14" fill="url(#cheap)"/>
+    <text x="405" y="80" font-size="17" font-weight="700" fill="#022c22" text-anchor="middle">cheap</text>
+    <text x="405" y="100" font-size="13" fill="#064e3b" text-anchor="middle">easy → $</text>
+
+    <rect x="350" y="212" width="110" height="64" rx="14" fill="url(#strong)"/>
+    <text x="405" y="240" font-size="17" font-weight="700" fill="#f5f3ff" text-anchor="middle">strong</text>
+    <text x="405" y="260" font-size="13" fill="#ddd6fe" text-anchor="middle">hard → $$$</text>
+
+    <text x="448" y="170" font-size="12" fill="#fbbf24">fallback</text>
+  </g>
+</svg>
